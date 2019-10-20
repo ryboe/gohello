@@ -20,5 +20,7 @@ func main() {
 
 func helloHandler(r http.ResponseWriter, req *http.Request) {
 	r.Header().Set("Content-Type", "text/plain; charset=UTF-8")
-	r.Write([]byte("hello world"))
+	if _, err := r.Write([]byte("hello world")); err != nil {
+		log.Println(err)
+	}
 }

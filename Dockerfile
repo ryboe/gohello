@@ -1,10 +1,11 @@
 # build statically linked Go binary.
 # CGO_ENABLED=0 forces static linking of glibc (no runtime dependencies yay!)
-FROM golang:1.12 AS build
+FROM golang:1.13 AS build
 LABEL maintainer="ryanboehning@gmail.com"
 LABEL builder=true
 ENV CGO_ENABLED 0
 ENV GO111MODULE on
+ENV GOFLAGS -mod=vendor
 VOLUME ["/app"]
 COPY ./ /go/src/gohello
 WORKDIR /go/src/gohello
