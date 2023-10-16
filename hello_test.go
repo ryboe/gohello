@@ -1,7 +1,7 @@
 package main
 
 import (
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -13,15 +13,15 @@ import (
 func TestHello(t *testing.T) {
 	cases := []struct {
 		request         *http.Request
-		wantStatus      int
 		wantContentType string
 		wantBody        string
+		wantStatus      int
 	}{
 		{
 			request:         httptest.NewRequest("GET", "localhost:8001", nil),
-			wantStatus:      200,
 			wantContentType: "text/plain; charset=UTF-8",
 			wantBody:        "hello world",
+			wantStatus:      200,
 		},
 	}
 
@@ -50,7 +50,7 @@ func TestHello(t *testing.T) {
 			continue
 		}
 
-		body, err := ioutil.ReadAll(resp.Body)
+		body, err := io.ReadAll(resp.Body)
 		if err != nil {
 			t.Errorf(
 				"helloHandler()\nunexpected error while reading response body: %v\n\nrequest:\n%s\n\nresponse:\n%s",
