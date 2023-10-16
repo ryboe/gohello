@@ -7,10 +7,8 @@ import (
 	_ "time/tzdata"
 )
 
-var (
-	// version is a SemVer string set at build-time (see Dockerfile).
-	version string // e.g. 1.2.3
-)
+// version is a SemVer string set at build-time (see Dockerfile).
+var version string // e.g. 1.2.3
 
 func main() {
 	http.HandleFunc("/", helloHandler)
@@ -20,7 +18,7 @@ func main() {
 	}
 }
 
-func helloHandler(r http.ResponseWriter, req *http.Request) {
+func helloHandler(r http.ResponseWriter, _ *http.Request) {
 	r.Header().Set("Content-Type", "text/plain; charset=UTF-8")
 	if _, err := r.Write([]byte("hello world")); err != nil {
 		log.Println(err)
